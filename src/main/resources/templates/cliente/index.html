@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <main>
+            <h1>Clientes</h1>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Data Nascimento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Zezinho</td>
+                        <td>Rua lalalal 100</td>
+                        <td>5555-1234</td>
+                        <td>ze@ze.com.br</td>
+                        <td>11/09/2023</td>
+                    </tr>
+                </tbody>
+            </table> 
+        </main>
+        <div th:include="layout :: footer">(footer)</div>
+    </body>
+</html>
