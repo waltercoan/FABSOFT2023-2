@@ -17,12 +17,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Zezinho</td>
-                        <td>Rua lalalal 100</td>
-                        <td>5555-1234</td>
-                        <td>ze@ze.com.br</td>
-                        <td>11/09/2023</td>
+                    <tr th:each="umCliente : ${listaClientes}">
+                        <td th:text="${umCliente.nome}"></td>
+                        <td th:text="${umCliente.endereco}"></td>
+                        <td th:text="${umCliente.telefone}"></td>
+                        <td th:text="${umCliente.email}"></td>
+                        <td th:text="${#dates.format(umCliente.dataNascimento,'dd/MM/yyyy')}"></td>
                     </tr>
                 </tbody>
             </table> 
