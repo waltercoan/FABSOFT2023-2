@@ -47,4 +47,12 @@ public class ClienteController {
                     "cliente",cliente);
     }
 
+
+    @GetMapping("/remover/{id}")
+    public ModelAndView remover(
+            @PathVariable("id") Cliente cliente){
+        service.delete(cliente);
+        return new ModelAndView("redirect:/clientes");
+    }
+
 }
