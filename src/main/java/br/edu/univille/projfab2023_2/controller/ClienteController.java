@@ -1,6 +1,7 @@
 package br.edu.univille.projfab2023_2.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import br.edu.univille.projfab2023_2.entity.Cliente;
 import br.edu.univille.projfab2023_2.repository.ClienteRepository;
+import br.edu.univille.projfab2023_2.service.CidadeService;
 import br.edu.univille.projfab2023_2.service.ClienteService;
 
 @Controller
@@ -20,7 +22,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService service;
-    
+    @Autowired
+    private CidadeService cidadeService;
+
     @GetMapping
     public ModelAndView index(){
 
@@ -30,9 +34,14 @@ public class ClienteController {
     }
     @GetMapping("/novo")
     public ModelAndView novo(){
+        HashMap<String,Object> dados = new HashMap<>();
         var novoCliente = new Cliente();
-        return new ModelAndView("cliente/form",
-                    "cliente",novoCliente);
+        var listaCidades = cidadeService.getAll();
+
+        dados.put("cliente",novoCliente);
+        dados.put("listaCidades",listaCidades);
+
+        return new ModelAndView("cliente/form", dados);
     }
     @PostMapping
     public ModelAndView save(Cliente cliente){
