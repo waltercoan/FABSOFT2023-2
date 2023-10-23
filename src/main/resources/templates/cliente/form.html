@@ -21,7 +21,7 @@
 
                 <div class="form-group">
                     <label for="txtCidade">Cidade</label>
-                    <select>
+                    <select th:field="*{cidade}">
                         <option 
                         th:each="umaCidade : ${listaCidades}" 
                         th:value="${umaCidade.id}" 
