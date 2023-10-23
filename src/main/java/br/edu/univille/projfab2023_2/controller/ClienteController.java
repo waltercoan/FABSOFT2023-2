@@ -52,8 +52,13 @@ public class ClienteController {
     @GetMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable("id") Cliente cliente){
 
-        return new ModelAndView("cliente/form",
-                    "cliente",cliente);
+        HashMap<String,Object> dados = new HashMap<>();
+        var listaCidades = cidadeService.getAll();
+        dados.put("cliente",cliente);
+        dados.put("listaCidades",listaCidades);
+        
+
+        return new ModelAndView("cliente/form",dados);
     }
 
 

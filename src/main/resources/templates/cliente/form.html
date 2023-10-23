@@ -22,7 +22,10 @@
                 <div class="form-group">
                     <label for="txtCidade">Cidade</label>
                     <select>
-                        <option th:each="umCidade : ${listaCidades}" th:value="${umaCidade.id}" th:text="${umaCidade.nome}"></option>
+                        <option 
+                        th:each="umaCidade : ${listaCidades}" 
+                        th:value="${umaCidade.id}" 
+                        th:text="${umaCidade.nome}"></option>
                     </select>
                 </div>
 
