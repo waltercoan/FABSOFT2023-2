@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Cliente {
@@ -20,6 +21,7 @@ public class Cliente {
     private long id;
     @Column(nullable = false, 
         length = 1000)
+    @NotBlank(message = "Campo nome não pode ser em branco")
     private String nome;
     private String endereco;
     private String telefone;

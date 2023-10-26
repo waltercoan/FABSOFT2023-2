@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import br.edu.univille.projfab2023_2.entity.Cliente;
 import br.edu.univille.projfab2023_2.repository.ClienteRepository;
 import br.edu.univille.projfab2023_2.service.CidadeService;
 import br.edu.univille.projfab2023_2.service.ClienteService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/clientes")
@@ -44,7 +46,15 @@ public class ClienteController {
         return new ModelAndView("cliente/form", dados);
     }
     @PostMapping
-    public ModelAndView save(Cliente cliente){
+    public ModelAndView save(@Valid Cliente cliente, 
+                BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            HashMap<String,Object> dados = new HashMap<>();
+            var listaCidades = cidadeService.getAll();
+            dados.put("cliente",cliente);
+            dados.put("listaCidades",listaCidades);
+            return new ModelAndView("cliente/form", dados);
+        }
         service.save(cliente);
         return new ModelAndView("redirect:/clientes");
 
