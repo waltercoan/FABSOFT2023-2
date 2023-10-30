@@ -9,6 +9,8 @@ import java.net.http.HttpResponse.BodyHandler;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.init.Jackson2ResourceReader;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +25,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Autowired
     private ClienteRepository repository;
+
     @Override
     public List<Cliente> getAll() {
         return repository.findAll();
@@ -54,6 +57,10 @@ public class ClienteServiceImpl implements ClienteService{
             e.printStackTrace();
         }        
         return "OK";        
+    }
+    @Override
+    public Page<Cliente> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
     
     

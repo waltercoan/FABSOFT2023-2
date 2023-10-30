@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head th:include="layout :: htmlhead"></head>
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <main>
+            <h1>Clientes</h1>
+            <hr>
+
+            <a th:href="@{/clientes/novo}"
+                class="btn btn-primary">Novo</a>
+
+            <table class="table" id="tabclientes">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th>Data Nascimento</th>
+                        <th>Cidade</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="umCliente : ${listaClientes}">
+                        <td th:text="${umCliente.nome}"></td>
+                        <td th:text="${umCliente.endereco}"></td>
+                        <td th:text="${umCliente.telefone}"></td>
+                        <td th:text="${umCliente.email}"></td>
+                        <td th:text="${#dates.format(umCliente.dataNascimento,'dd/MM/yyyy')}"></td>
+                        <td th:text="${umCliente.cidade?.nome}"></td>
+                        <td><a class="btn btn-secondary"
+                            th:href="@{'/clientes/alterar/' + 
+                            ${umCliente.id}}">Alterar</a>
+                            <button 
+                            th:data-id="${umCliente.id}"
+                            class="btn btn-danger js-delete">Excluir</button>
+                        
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </main>
+
+        <div class="modal" tabindex="-1" id="modalcliente">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Excluir cliente</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Confirma a exclusão do cliente?</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                  <button type="button" class="btn btn-primary" id="btnsim">SIM</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav aria-label="Pagination" th:if="${totalPages >= 0}">
+            <ul class="pagination justify-content-center">
+              <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{'/clientes/paginacao?' + 'page=1'  + '&size=' + ${pageSize}}" rel="tooltip">
+                    <<
+                </a>
+              </li>
+              <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a class="page-link" th:href="@{'/clientes/paginacao?' + 'page=' + ${currentPage - 1} + '&size=' + ${pageSize}}" rel="tooltip">
+                    Prev
+                </a>
+              </li>
+              <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                <a class="page-link" href="#">...</a>
+              </li>
+              <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+                th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+                <a class="page-link" th:text="${page}" th:href="@{'/clientes/paginacao?' + 'page=' + ${page} + '&size=' + ${pageSize}}" rel="tooltip">
+                    
+                </a>
+              </li>
+              <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+                <a class="page-link" href="#">...</a>
+              </li>
+              <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{'/clientes/paginacao?' + 'page=' + ${currentPage + 1} + '&size=' + ${pageSize}}" rel="tooltip">
+                    Next
+                </a>
+              </li>
+              <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{'/clientes/paginacao?' + 'page=' + ${totalPages} + '&size=' + ${pageSize}}" rel="tooltip">
+                    >>
+                </a>
+              </li>
+            </ul>
+        </nav>
+        <div th:include="layout :: footer">(footer)</div>
+        <script th:src="@{/script.js}"></script>
+    </body>
+</html>
