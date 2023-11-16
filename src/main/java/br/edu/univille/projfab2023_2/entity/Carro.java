@@ -19,7 +19,7 @@ public class Carro {
     private String modelo;
     private String placa;
 
-    @OneToMany
+    @OneToMany(cascade = {jakarta.persistence.CascadeType.ALL})
     @JoinColumn(name = "id_carro")
     private List<Manutencao> listaHistoricoManutencao =
         new ArrayList<>();
