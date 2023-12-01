@@ -48,9 +48,9 @@ public class ClienteServiceImpl implements ClienteService{
                 .build();
         BodyHandler<String> bodyHandler = HttpResponse.BodyHandlers.ofString();
         try {
-            client.send(request, bodyHandler);
+            HttpResponse response = client.send(request, bodyHandler);
             
-            return bodyHandler.toString();
+            return response.body().toString();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

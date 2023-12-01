@@ -76,7 +76,7 @@ public class ClienteController {
             return new ModelAndView("cliente/form", dados);
         }
         service.save(cliente);
-        return new ModelAndView("redirect:/clientes");
+        return new ModelAndView("redirect:clientes");
 
     }
     @GetMapping("/alterar/{id}")
